@@ -1,0 +1,55 @@
+"use client";
+
+import { FaTimes } from "react-icons/fa";
+
+export default function UserDetailModal({
+  user,
+  onClose,
+}: any) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button
+          className="modal-close"
+          onClick={onClose}
+        >
+          <FaTimes />
+        </button>
+
+        <h2>User Detail</h2>
+
+        <p>
+          <strong>Name:</strong>{" "}
+          {user.name}
+        </p>
+
+        <p>
+          <strong>Email:</strong>{" "}
+          {user.email}
+        </p>
+
+        <p>
+            <strong>Role:</strong>{" "}
+            <span
+                className={`role-badge ${
+                user.role === "admin"
+                    ? "role-admin"
+                    : "role-user"
+                }`}
+            >
+                {user.role}
+            </span>
+        </p>
+
+        <p>
+          <strong>Registered:</strong>{" "}
+          {new Date(
+            user.createdAt
+          ).toLocaleDateString(
+            "id-ID"
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}

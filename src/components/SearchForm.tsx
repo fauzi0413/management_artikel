@@ -25,7 +25,7 @@ export default function SearchForm({
         <input
           type="text"
           name="search"
-          placeholder="Cari artikel..."
+          placeholder="What are you looking for?"
           value={search}
           onChange={(e) =>
             setSearch(e.target.value)
