@@ -41,7 +41,7 @@ export default async function MyPostsPage() {
           <div className="empty-state">
             <h3>No Posts Yet</h3>
             <p>
-              You haven't created any posts.
+              You haven&apos;t created any posts.
             </p>
           </div>
         ) : (
