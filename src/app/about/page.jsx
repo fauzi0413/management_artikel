@@ -28,9 +28,6 @@ function Page() {
         <p>
           Current Version: <strong>v{APP_VERSION}</strong>
         </p>
-        <p>
-          Last Updated: June 2026
-        </p>
       </div>
     </div>
   );
