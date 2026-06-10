@@ -3,29 +3,65 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import DeletePostButton from "@/components/DeletePostButton";
+import Pagination from "@/components/Pagination";
+import SearchForm from "@/components/SearchForm";
 
-export default async function MyPostsPage() {
+interface PageProps {
+  searchParams: Promise<{
+    page?: string;
+    search?: string;
+  }>;
+}
+
+export default async function MyPostsPage({searchParams}: PageProps) {
   const session = await auth();
+  const params = await searchParams;
+  const page = Number(params.page || 1);
+  const search = params.search || "";
+  const limit = 10;
+  const skip = (page - 1) * limit;
 
   if (!session) {
     redirect("/login");
   }
 
-  const posts = await prisma.post.findMany({
+  const totalPosts = await prisma.post.count({
     where: {
       userId: Number(session.user.id),
+      title: {
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+  });
+
+  const totalPages = Math.ceil(
+    totalPosts / limit
+  );
+
+  const userId = Number(session.user.id);
+
+  const posts = await prisma.post.findMany({
+    where: {
+      userId,
+      title: {
+        contains: search,
+        mode: "insensitive",
+      },
     },
     orderBy: {
       id: "desc",
     },
+    take: limit,
+    skip,
   });
-
+  
   return (
     <div className="dashboard-page">
       <div className="dashboard-header">
         <div>
-          <h1>Your Posts</h1>
-          <p>Manage all posts you have created.</p>
+          <h1 style={{textAlign:"left"}}>Your Posts</h1>
+          <p style={{textAlign:"left"}}>Manage all posts you have created. Now you have <span className="font-bold">{totalPosts}</span> post(s).</p>
         </div>
 
         <Link
@@ -34,6 +70,10 @@ export default async function MyPostsPage() {
         >
           + Create Post
         </Link>
+      </div>
+
+      <div className="dashboard-toolbar">
+        <SearchForm initialSearch={search} basePath="/posts/my-posts"/>
       </div>
 
       <div className="table-card">
@@ -48,6 +88,7 @@ export default async function MyPostsPage() {
           <table className="posts-table">
             <thead>
               <tr>
+                <th>No</th>
                 <th>Title</th>
                 <th>Date</th>
                 <th className="width=180 text-center">Actions</th>
@@ -55,8 +96,9 @@ export default async function MyPostsPage() {
             </thead>
 
             <tbody>
-              {posts.map((post) => (
+              {posts.map((post, index) => (
                 <tr key={post.id}>
+                  <td>{skip + index + 1}</td>
                   <td>{post.title}</td>
 
                   <td>
@@ -84,6 +126,7 @@ export default async function MyPostsPage() {
             </tbody>
           </table>
         )}
+        <Pagination page={page} totalPages={totalPages} basePath="/posts/my-posts" search={search}/>
       </div>
     </div>
   );

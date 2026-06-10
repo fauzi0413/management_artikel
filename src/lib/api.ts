@@ -9,11 +9,30 @@ export async function getLastPost() {
   });
 }
 
-export async function getAllPostIds(page: number) {
+export async function getAllPostIds(
+  page: number,
+  search: string
+) {
   const limit = 10;
   const skip = (page - 1) * limit;
 
   return await prisma.post.findMany({
+    where: {
+      OR: [
+        {
+          title: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        {
+          content: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
     skip,
     take: limit,
     orderBy: {
@@ -30,6 +49,25 @@ export async function getPostById(id: number) {
   });
 }
 
-export async function getTotalPosts() {
-  return await prisma.post.count();
+export async function getTotalPosts(
+  search: string
+) {
+  return await prisma.post.count({
+    where: {
+      OR: [
+        {
+          title: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        {
+          content: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  });
 }

@@ -31,6 +31,10 @@ a {
   text-align: center !important;
 }
 
+.font-bold {
+  font-weight: bold;
+}
+
 /* Header */
 .header {
   background-color: #222;
@@ -617,4 +621,196 @@ body.dark-mode .posts-table tr:hover {
 
 .empty-state h3 {
   margin-bottom: 10px;
+}
+
+.search-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.search-btn {
+  padding: 12px 20px;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background: #444;
+}
+
+body.dark-mode .search-input {
+  background: #1e1e1e;
+  border-color: #444;
+  color: white;
+}
+
+.search-result-info {
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+body.dark-mode .search-result-info {
+  color: #aaa;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+}
+
+.clear-search {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  background: transparent;
+  border: none;
+
+  color: #999;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-search:hover {
+  color: #ef4444;
+}
+
+.dashboard-count {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+body.dark-mode .dashboard-count {
+  color: #aaa;
+}
+
+.guest-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.guest-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+}
+
+.guest-actions svg {
+  color: #facc15;
+}
+
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 20px;
+  }
+
+  .header nav {
+    position: relative;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+
+    display: none;
+    flex-direction: column;
+    gap: 0;
+
+    background: #222;
+
+    padding: 20px;
+    border-radius: 0 0 12px 12px;
+
+    z-index: 1000;
+  }
+
+  body.dark-mode .nav-links {
+    background: #1f1f1f;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a,
+  .profile-btn {
+    width: 100%;
+    padding: 12px 0;
+    text-align: left;
+  }
+
+  .guest-actions {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+  .profile-dropdown {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+  }
 }
