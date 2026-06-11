@@ -108,7 +108,7 @@ export default function LoginForm() {
       </button>
     </form>
     <p className="auth-link">
-    Don't have an account?{" "}
+    Don&apos;t have an account?{" "}
     <Link href="/register">
         Register
     </Link>
