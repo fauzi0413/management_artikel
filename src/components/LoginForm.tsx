@@ -3,18 +3,15 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
   const router = useRouter();
-
-  const [email, setEmail] =
-    useState("");
-
-  const [password, setPassword] =
-    useState("");
-
-  const [error, setError] =
-    useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -49,6 +46,7 @@ export default function LoginForm() {
     }
 
   return (
+    <>
     <form
       className="post-form"
       onSubmit={handleSubmit}
@@ -58,21 +56,39 @@ export default function LoginForm() {
         placeholder="Email"
         className="post-input"
         value={email}
+        required
         onChange={(e) =>
           setEmail(e.target.value)
         }
       />
 
-      <input
-        type="password"
+      <div className="password-wrapper">
+        <input
+        type={showPassword ? "text" : "password"}
         placeholder="Password"
         className="post-input"
         value={password}
+        required
         onChange={(e) =>
           setPassword(e.target.value)
         }
       />
-
+      <button
+          type="button"
+          className="password-toggle"
+          onClick={() =>
+          setShowPassword(
+              !showPassword
+          )
+          }
+      >
+          {showPassword ? (
+          <FaEyeSlash />
+          ) : (
+          <FaEye />
+          )}
+      </button>
+      </div>
       {error && (
         <p
           style={{
@@ -91,5 +107,12 @@ export default function LoginForm() {
         {loading ? "Please wait..." : "Login"}
       </button>
     </form>
+    <p className="auth-link">
+    Don't have an account?{" "}
+    <Link href="/register">
+        Register
+    </Link>
+    </p>
+    </>
   );
 }
