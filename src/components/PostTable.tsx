@@ -4,14 +4,29 @@ import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import PostDetailModal from "./PostDetailModal";
 
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  user: {
+    id: number;
+    name: string | null;
+    email: string;
+    role: string;
+  } | null;
+  createdAt: Date;
+}
+
+interface PostTableProps {
+  posts: Post[];
+  skip: number;
+}
+
 export default function PostTable({
   posts,
   skip,
-}: any) {
-  const [
-    selectedPost,
-    setSelectedPost,
-  ] = useState(null);
+}: PostTableProps) {
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   return (
     <>
@@ -38,7 +53,7 @@ export default function PostTable({
 
         <tbody>
           {posts.map(
-            (post: any, index: number) => (
+            (post, index) => (
               <tr key={post.id}>
                 <td>
                   {skip + index + 1}

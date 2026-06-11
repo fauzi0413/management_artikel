@@ -1,56 +1,5 @@
 import { prisma } from "@/lib/prisma";
 
-const [
-  totalUsers,
-  totalPosts,
-  totalAdmins,
-  recentPosts,
-  recentUsers,
-  postToday,
-] = await Promise.all([
-  prisma.user.count(),
-
-  prisma.post.count(),
-
-  prisma.user.count({
-    where: {
-      role: "admin",
-    },
-  }),
-
-  prisma.post.findMany({
-    take: 3,
-    include: {
-      user: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  }),
-
-  prisma.user.findMany({
-    take: 3,
-    orderBy: {
-      createdAt: "desc",
-    },
-  }),
-
-  await prisma.post.count({
-    where: {
-      createdAt: {
-        gte: new Date(
-          new Date().setHours(
-            0,
-            0,
-            0,
-            0
-          )
-        ),
-      },
-    },
-    })
-]);
-
 export default async function AdminPage() {
   const [
     totalUsers,
@@ -58,6 +7,7 @@ export default async function AdminPage() {
     totalAdmins,
     recentPosts,
     recentUsers,
+    postToday,
   ] = await Promise.all([
     prisma.user.count(),
 
@@ -85,6 +35,21 @@ export default async function AdminPage() {
         createdAt: "desc",
       },
     }),
+
+    prisma.post.count({
+      where: {
+        createdAt: {
+          gte: new Date(
+            new Date().setHours(
+              0,
+              0,
+              0,
+              0
+            )
+          ),
+        },
+      },
+    })
   ]);
 
   return (

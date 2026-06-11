@@ -2,10 +2,25 @@
 
 import { FaTimes } from "react-icons/fa";
 
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: Date;
+  user: {
+    name: string | null;
+  } | null;
+}
+
+interface PostDetailModalProps {
+  post: Post;
+  onClose: () => void;
+}
+
 export default function PostDetailModal({
   post,
   onClose,
-}: any) {
+}: PostDetailModalProps) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">

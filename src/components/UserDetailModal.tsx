@@ -2,10 +2,23 @@
 
 import { FaTimes } from "react-icons/fa";
 
+interface User {
+  id: number;
+  name: string | null;
+  email: string;
+  role: string;
+  createdAt: Date;
+}
+
+interface UserDetailModalProps {
+  user: User;
+  onClose: () => void;
+}
+
 export default function UserDetailModal({
   user,
   onClose,
-}: any) {
+}: UserDetailModalProps) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">

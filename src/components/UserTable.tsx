@@ -4,12 +4,24 @@ import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import UserDetailModal from "./UserDetailModal";
 
+interface User {
+  id: number;
+  name: string | null;
+  email: string;
+  role: string;
+  createdAt: Date;
+}
+
+interface UserTableProps {
+  users: User[];
+  skip: number;
+}
+
 export default function UserTable({
   users,
   skip,
-}: any) {
-  const [selectedUser, setSelectedUser] =
-    useState(null);
+}: UserTableProps) {
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   return (
     <>
@@ -26,7 +38,7 @@ export default function UserTable({
 
         <tbody>
           {users.map(
-            (user: any, index: number) => (
+            (user, index) => (
               <tr key={user.id}>
                 <td>
                   {skip + index + 1}

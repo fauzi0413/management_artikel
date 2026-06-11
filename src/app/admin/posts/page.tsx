@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import SearchForm from "@/components/SearchForm";
 import Pagination from "@/components/Pagination";
-import { FaEye } from "react-icons/fa";
 import PostTable from "@/components/PostTable";
 
 interface PageProps {
