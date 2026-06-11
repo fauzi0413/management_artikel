@@ -97,6 +97,8 @@ function Header() {
                   </>
                 )}
 
+                <div className="dropdown-divider"></div>
+
                 <button
                   className="mobile-logout-btn"
                   onClick={() =>
@@ -144,6 +146,9 @@ function Header() {
                       </Link>
                     </>
                   )}
+                  
+                <div className="dropdown-divider"></div>
+
                     <div className="dropdown-item">
                       <ThemeChange />
                     </div>

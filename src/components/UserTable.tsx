@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import UserDetailModal from "./UserDetailModal";
+import EditUserModal from "./EditUserModal";
 
 interface User {
   id: number;
@@ -22,6 +23,7 @@ export default function UserTable({
   skip,
 }: UserTableProps) {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   return (
     <>
@@ -32,7 +34,7 @@ export default function UserTable({
             <th className="mobile-hide">Name</th>
             <th>Email</th>
             <th className="mobile-hide">Role</th>
-            <th>Detail</th>
+            <th className="text-center">Detail</th>
           </tr>
         </thead>
 
@@ -64,7 +66,7 @@ export default function UserTable({
                   </span>
                 </td>
 
-                <td>
+                <td className="text-center">
                   <button
                     className="view-btn"
                     onClick={() =>
@@ -88,6 +90,23 @@ export default function UserTable({
           onClose={() =>
             setSelectedUser(null)
           }
+          onEdit={(user) => {
+            setSelectedUser(null);
+            setEditingUser(user);
+          }}
+        />
+      )}
+
+      {editingUser && (
+        <EditUserModal
+          user={editingUser}
+          onClose={() =>
+            setEditingUser(null)
+          }
+          onBack={() => {
+            setEditingUser(null);
+            setSelectedUser(editingUser);
+          }}
         />
       )}
     </>

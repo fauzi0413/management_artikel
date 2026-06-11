@@ -13,13 +13,16 @@ interface User {
 interface UserDetailModalProps {
   user: User;
   onClose: () => void;
+  onEdit: (user: User) => void;
 }
 
 export default function UserDetailModal({
   user,
   onClose,
+  onEdit,
 }: UserDetailModalProps) {
   return (
+    <>
     <div className="modal-overlay">
       <div className="modal-content">
         <button
@@ -62,7 +65,20 @@ export default function UserDetailModal({
             "id-ID"
           )}
         </p>
+            
+        <div className="modal-actions">
+          <button
+            className="save-btn"
+            onClick={() =>
+              onEdit(user)
+            }
+          >
+            Edit User
+          </button>
+        </div>
+    
       </div>
     </div>
+   </>
   );
 }

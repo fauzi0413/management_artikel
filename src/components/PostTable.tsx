@@ -45,7 +45,7 @@ export default function PostTable({
               Date
             </th>
 
-            <th className="">
+            <th className="text-center">
               Detail
             </th>
           </tr>
@@ -79,7 +79,7 @@ export default function PostTable({
                   )}
                 </td>
 
-                <td className="">
+                <td className="text-center">
                   <button
                     className="view-btn"
                     onClick={() =>
