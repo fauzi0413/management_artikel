@@ -61,10 +61,11 @@ function Header() {
               <Link href="/posts/my-posts" onClick={() => setMobileMenu(false)}>Your Posts</Link>
             )}
             <Link href="/about" onClick={() => setMobileMenu(false)}>About</Link>
-            <div className="theme-btn desktop-hide">
-              <ThemeChange />
-            </div>
             {mobileMenu && session && (
+              <>
+              <div className="theme-btn ">
+                <ThemeChange />
+              </div>
               <div className="mobile-user-menu">
 
                 <div className="mobile-user-info">
@@ -107,7 +108,9 @@ function Header() {
                   Logout
                 </button>
               </div>
+              </>
             )}
+
             {session ? (
               !mobileMenu && (
               <div className="profile-dropdown" ref={dropdownRef}>
