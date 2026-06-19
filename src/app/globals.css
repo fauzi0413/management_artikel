@@ -1245,3 +1245,30 @@ body.dark-mode .modal-close {
 body.dark-mode .dropdown-divider {
   border-top: 2px solid rgba(255, 255, 255, 0.15);
 }
+
+.related-posts {
+  margin-top: 4rem;
+}
+
+.related-posts h2 {
+  margin-bottom: 1.5rem;
+}
+
+.related-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.related-item {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.related-item h3 {
+  margin-bottom: 0.5rem;
+}
+
+.related-item p {
+  color: #666;
+}
