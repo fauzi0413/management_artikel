@@ -1,14 +1,14 @@
 import React from 'react'
-import { getPostById } from '@/lib/api'
+import { getPostBySlug } from '@/lib/api'
 import Link from 'next/link';
 
 interface PageProps {
-    params: Promise<{ id: string }>
+    params: Promise<{ slug: string }>
 }
 
 async function page({params}: PageProps) {
-    const {id} = await params;
-    const post = await getPostById(Number(id));
+    const {slug} = await params;
+    const post = await getPostBySlug(slug);
     if (!post) {
         return (
             <>

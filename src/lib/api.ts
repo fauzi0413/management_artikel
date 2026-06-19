@@ -49,6 +49,14 @@ export async function getPostById(id: number) {
   });
 }
 
+export async function getPostBySlug(slug: string) {
+  return await prisma.post.findUnique({
+    where: {
+      slug,
+    },
+  });
+}
+
 export async function getTotalPosts(
   search: string
 ) {
