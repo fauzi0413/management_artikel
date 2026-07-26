@@ -46,7 +46,11 @@ function Header() {
   return (
     <header className="header">
       <nav>
-        <div className="logo"><Link href="/about"><Image src="https://images-cdn.openxcell.com/wp-content/uploads/2024/07/24154156/dango-inner-2.webp" alt="Logo" width={50} height={50} /></Link></div>
+        <div className="logo">
+          <Link href="/" className="brand-logo">
+            <span className="brand-primary">Brozy</span><span className="brand-secondary">News</span>
+          </Link>
+        </div>
         <button className="mobile-menu-btn" onClick={() => setMobileMenu(!mobileMenu)}>
           {mobileMenu ? (
             <FaTimes />
@@ -55,12 +59,11 @@ function Header() {
           )}
         </button>
         <div className={`nav-links ${mobileMenu ? "active" : ""}`}>
-            <Link href="/" onClick={() => setMobileMenu(false)}>Home</Link>
-            <Link href="/posts" onClick={() => setMobileMenu(false)}>All Posts</Link>
+            <Link href="/" onClick={() => setMobileMenu(false)}>Beranda</Link>
             {session && (
               <Link href="/posts/my-posts" onClick={() => setMobileMenu(false)}>Your Posts</Link>
             )}
-            <Link href="/about" onClick={() => setMobileMenu(false)}>About</Link>
+            <Link href="/about" onClick={() => setMobileMenu(false)}>Tentang</Link>
             {mobileMenu && session && (
               <>
               <div className="theme-btn ">
@@ -170,7 +173,6 @@ function Header() {
               )
             ) : (
               <div className="guest-actions">
-                <Link href="/login" onClick={() => setMobileMenu(false)}>Login</Link>
                 <div className="theme-btn">
                   <ThemeChange />
                 </div>

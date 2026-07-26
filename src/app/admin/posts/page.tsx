@@ -74,8 +74,11 @@ export default async function AdminPostsPage({ searchParams }: PageProps) {
     );
 
   return (
-    <div className="dashboard-page">
-      <h1>Manage Posts</h1>
+    <div className="admin-container">
+      <div className="admin-header">
+        <h1>Manage Posts</h1>
+        <p>Lihat, cari, dan kelola seluruh artikel yang diterbitkan.</p>
+      </div>
 
       <SearchForm initialSearch={search} basePath="/admin/posts" />
 

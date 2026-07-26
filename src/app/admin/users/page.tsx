@@ -79,10 +79,11 @@ export default async function AdminUsersPage({
     });
 
   return (
-    <div className="dashboard-page">
-      <div className="dashboard-header">
+    <div className="admin-container">
+      <div className="admin-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <h1>Manage Users</h1>
+          <p>Lihat, cari, dan kelola akun pengguna serta hak aksesnya.</p>
         </div>
         <CreateUserButton />
       </div>

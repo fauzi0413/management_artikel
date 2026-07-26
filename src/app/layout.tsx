@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NEXTJS News",
-  description: "Ini adalah situs berita teknologi NextJS",
+  title: "Brozy News",
+  description: "Portal Berita Teknologi Terkini - Brozy News",
 };
 
 export default function RootLayout({

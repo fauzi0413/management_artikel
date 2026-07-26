@@ -4,27 +4,16 @@ import { useEffect, useState } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
 function ThemeChange() {
-  const [mounted, setMounted] =
-    useState(false);
-
-  const [darkMode, setDarkMode] =
-    useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    const savedTheme =
-      localStorage.getItem("theme");
-
-    const isDark =
-      savedTheme === "dark";
-
+    const savedTheme = localStorage.getItem("theme");
+    const isDark = savedTheme === "dark";
     setDarkMode(isDark);
-
     if (isDark) {
-      document.body.classList.add(
-        "dark-mode"
-      );
+      document.body.classList.add("dark-mode");
     }
-
     setMounted(true);
   }, []);
 
@@ -32,21 +21,11 @@ function ThemeChange() {
     if (!mounted) return;
 
     if (darkMode) {
-      document.body.classList.add(
-        "dark-mode"
-      );
-      localStorage.setItem(
-        "theme",
-        "dark"
-      );
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
     } else {
-      document.body.classList.remove(
-        "dark-mode"
-      );
-      localStorage.setItem(
-        "theme",
-        "light"
-      );
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
     }
   }, [darkMode, mounted]);
 
@@ -54,22 +33,19 @@ function ThemeChange() {
     setDarkMode(!darkMode);
   };
 
+  // Prevent hydration mismatch
+  if (!mounted) return <div className="theme-switcher-placeholder" />;
+
   return (
     <button
-      className="theme-switcher"
+      className={`modern-theme-toggle ${darkMode ? 'dark' : 'light'}`}
       onClick={toggleTheme}
+      aria-label="Toggle Theme"
+      title="Toggle Theme"
     >
-      {darkMode ? (
-        <>
-          <FaSun />
-          <span>Light</span>
-        </>
-      ) : (
-        <>
-          <FaMoon />
-          <span>Dark</span>
-        </>
-      )}
+      <div className="toggle-thumb">
+        {darkMode ? <FaMoon className="moon-icon" /> : <FaSun className="sun-icon" />}
+      </div>
     </button>
   );
 }

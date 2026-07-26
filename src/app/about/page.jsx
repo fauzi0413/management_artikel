@@ -1,26 +1,30 @@
 import React from "react";
 import { APP_VERSION } from "@/lib/version";
 
-function Page() {
-  return (
-    <div className="main-heading">
-      <h1>About NextJS News</h1>
+export default async function Page() {
+  // Memberikan jeda buatan (artificial delay) selama 800ms agar animasi skeleton dapat dinikmati 
+  // karena halaman Tentang ini sebenarnya tidak memuat API sama sekali.
+  await new Promise((resolve) => setTimeout(resolve, 800));
 
-      <p className="subtitle">
-        NextJS News is a modern article platform built with Next.js,
-        TypeScript, PostgreSQL, Prisma, and NextAuth. The platform allows
-        users to discover, create, manage, and share articles related to
-        web development, programming, software engineering, and emerging
-        technologies.
+  return (
+    <div className="main-heading" style={{ textAlign: "center" }}>
+      <img 
+        src="/logo.png" 
+        alt="BrozyNews Logo" 
+        style={{ width: "150px", height: "auto", margin: "0 auto 20px", display: "block", borderRadius: "16px", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
+      />
+      <h1>Tentang BrozyNews</h1>
+
+      <p className="subtitle" style={{ maxWidth: "800px", margin: "0 auto 20px" }}>
+        BrozyNews adalah portal agregator berita modern yang mengumpulkan dan menyajikan 
+        kabar-kabar terkini dari berbagai media raksasa di Indonesia (seperti Antara News, 
+        CNBC, CNN, Republika, dan Okezone) secara real-time.
       </p>
 
-      <p>
-        Our goal is to provide a simple and accessible space where developers
-        can learn new skills, explore technical insights, and stay updated
-        with the latest trends in the technology industry. Whether you are a
-        beginner starting your programming journey or an experienced developer
-        looking for practical knowledge, NextJS News is designed to support
-        continuous learning and knowledge sharing.
+      <p style={{ maxWidth: "800px", margin: "0 auto 30px", lineHeight: "1.7" }}>
+        Misi kami adalah memberikan pengalaman membaca berita yang super cepat, nyaman, dan 
+        terpusat. Tanpa harus mengunjungi puluhan situs web berbeda, kini Anda dapat menikmati ratusan 
+        artikel terbaru seputar Teknologi, Bisnis, Otomotif, hingga Hiburan dalam satu platform yang elegan.
       </p>
 
       <div className="about-version">
@@ -32,5 +36,3 @@ function Page() {
     </div>
   );
 }
-
-export default Page;

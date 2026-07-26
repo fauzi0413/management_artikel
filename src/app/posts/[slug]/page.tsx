@@ -1,6 +1,8 @@
 import React from 'react'
 import { getPostBySlug, getRelatedPosts } from '@/lib/api'
 import Link from 'next/link';
+import PostList from '@/components/PostList';
+import { getExternalPosts } from '@/lib/externalApi';
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -10,11 +12,31 @@ async function page({params}: PageProps) {
     const {slug} = await params;
     const post = await getPostBySlug(slug);
     const relatedPosts = await getRelatedPosts(slug, post?.title || "");
+    const externalPosts = await getExternalPosts();
+    
+    // Ambil 2 berita eksternal teratas sebagai tambahan artikel terkait
+    const selectedExternalPosts = externalPosts.slice(0, 2);
+    
+    // Format artikel internal agar sesuai dengan props PostList
+    const formattedInternalPosts = relatedPosts.map(item => ({
+        id: item.id,
+        slug: item.slug,
+        title: item.title,
+        content: item.content.replace(/<[^>]+>/g, '').trim(),
+        imageUrl: `https://picsum.photos/seed/internal_${item.id}/800/500`,
+    }));
+
+    // Gabungkan artikel internal dan eksternal
+    const combinedRelatedPosts = [...formattedInternalPosts, ...selectedExternalPosts];
     if (!post) {
         return (
             <>
-            <Link href="/"><span className='back-link'>Back to Home</span></Link>
             <div className="post-detail">
+                <div style={{ marginBottom: "20px" }}>
+                    <Link href="/" className="back-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px", margin: 0, textDecoration: "none" }}>
+                        <span>&larr;</span> Kembali ke Beranda
+                    </Link>
+                </div>
                 <h1>Post not found</h1>
             </div>
             </>
@@ -22,8 +44,12 @@ async function page({params}: PageProps) {
     }
     return (
         <>
-        <Link href="/"><span className='back-link'>Back to Home</span></Link>
         <div className="post-detail">
+            <div style={{ marginBottom: "20px" }}>
+                <Link href="/" className="back-link" style={{ display: "inline-flex", alignItems: "center", gap: "6px", margin: 0, textDecoration: "none" }}>
+                    <span>&larr;</span> Kembali ke Beranda
+                </Link>
+            </div>
             <h1>{post.title}</h1>
             <p className="post-date">
                 Dibuat pada{" "}
@@ -33,27 +59,23 @@ async function page({params}: PageProps) {
                     timeStyle: "short",
                 })}
             </p>
-            <p>{post.content}</p>
+            <div className="post-detail-image" style={{ margin: "20px 0", borderRadius: "8px", overflow: "hidden" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                    src={post.image || `https://picsum.photos/seed/internal_${post.id}/1200/600`} 
+                    alt={post.title} 
+                    style={{ width: "100%", height: "auto", display: "block" }} 
+                />
+            </div>
+            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
         
-        {relatedPosts.length > 0 && (
+        {combinedRelatedPosts.length > 0 && (
         <div className="related-posts">
             <h2>Related Articles</h2>
 
-            <div className="related-list">
-            {relatedPosts.map((item) => (
-                <div key={item.slug} className="related-item">
-                <Link href={`/posts/${item.slug}`}>
-                    <h3>{item.title}</h3>
-                </Link>
-
-                <p>
-                    {item.content.length > 100
-                        ? `${item.content.slice(0, 100)}...`
-                        : item.content}
-                </p>
-                </div>
-            ))}
+            <div style={{ marginTop: "20px" }}>
+                <PostList posts={combinedRelatedPosts} />
             </div>
         </div>
         )}
