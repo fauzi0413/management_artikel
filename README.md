@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BrozyNews — Sistem Manajemen Artikel
 
-## Getting Started
+Aplikasi web manajemen artikel berbasis **Next.js 15** yang dilengkapi dengan autentikasi pengguna, panel admin, dan editor artikel rich-text. Dibangun sebagai proyek pembelajaran Next.js dengan stack modern dan fitur lengkap.
 
-First, run the development server:
+## ✨ Fitur
+
+- 📝 **Manajemen Artikel** — Buat, edit, dan hapus artikel dengan editor rich-text (React Quill)
+- 🔐 **Autentikasi** — Login & registrasi dengan NextAuth.js, password di-hash menggunakan bcrypt
+- 👤 **Manajemen Pengguna** — Role-based access (user / admin)
+- 🔗 **Auto Slug** — Slug artikel dibuat otomatis menggunakan `slugify`
+- 🌙 **Dark Mode** — Dukungan tema terang/gelap via `next-themes`
+- 📊 **Panel Admin** — Halaman admin khusus untuk mengelola konten dan pengguna
+- 🗄️ **Database** — PostgreSQL dengan Prisma ORM
+
+## 🛠️ Tech Stack
+
+| Teknologi | Versi |
+|---|---|
+| Next.js | 15.x (Turbopack) |
+| React | 19.x |
+| TypeScript | 5.x |
+| Prisma ORM | 7.x |
+| PostgreSQL | — |
+| NextAuth.js | 4.x |
+| TailwindCSS | 4.x |
+| React Quill | 3.x |
+| Sonner (toast) | 2.x |
+
+## 🚀 Memulai
+
+### 1. Clone & Install
+
+```bash
+git clone <repo-url>
+cd belajar-nextjs
+npm install
+```
+
+### 2. Konfigurasi Environment
+
+Salin file contoh environment dan isi variabelnya:
+
+```bash
+cp env.example .env
+```
+
+Variabel yang perlu diisi di `.env`:
+
+```env
+DATABASE_URL=postgresql://user:password@host:port/dbname
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+```
+
+### 3. Setup Database
+
+```bash
+# Generate Prisma Client
+npx prisma generate
+
+# Jalankan migrasi
+npx prisma migrate dev
+
+# (Opsional) Seed data awal
+npm run seed
+```
+
+### 4. Jalankan Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Struktur Proyek
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── admin/          # Panel admin
+│   ├── api/            # API Routes (users, posts, auth)
+│   ├── login/          # Halaman login
+│   ├── register/       # Halaman registrasi
+│   ├── post/           # Halaman detail artikel
+│   └── posts/          # Halaman daftar & buat artikel
+├── components/         # Komponen UI yang dapat digunakan ulang
+├── lib/                # Utilitas & konfigurasi (Prisma, auth, API)
+└── types/              # TypeScript type definitions
+```
 
-## Learn More
+## 📜 Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev          # Jalankan development server (Turbopack)
+npm run build        # Build production (prisma generate + next build)
+npm run start        # Jalankan production server
+npm run seed         # Seed semua data awal
+npm run seed:users   # Seed data pengguna saja
+npm run seed:articles # Seed data artikel saja
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🗃️ Model Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **User** — id, email, username, name, password, role, timestamps
+- **Post** — id, title, content, image, status, slug, published, userId, timestamps
