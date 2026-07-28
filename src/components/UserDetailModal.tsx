@@ -5,6 +5,7 @@ import { FaTimes } from "react-icons/fa";
 interface User {
   id: number;
   name: string | null;
+  username: string | null;
   email: string;
   role: string;
   createdAt: Date;

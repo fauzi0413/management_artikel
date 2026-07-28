@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import RichTextEditor from "@/components/RichTextEditor";
 
 interface Post {
   id: number;
@@ -78,14 +79,9 @@ export default function EditPostForm({
           }
         />
 
-        <textarea
-          className="post-textarea"
+        <RichTextEditor
           value={content}
-          onChange={(e) =>
-            setContent(
-              e.target.value
-            )
-          }
+          onChange={setContent}
         />
 
         <button
@@ -103,7 +99,7 @@ export default function EditPostForm({
                 href="/posts/my-posts"
                 className="back-btn"
             >
-                ← Back to Your Posts
+                ← Kembali
             </Link>
         </div>
 

@@ -8,6 +8,7 @@ import EditUserModal from "./EditUserModal";
 interface User {
   id: number;
   name: string | null;
+  username: string | null;
   email: string;
   role: string;
   createdAt: Date;
@@ -32,6 +33,7 @@ export default function UserTable({
           <tr>
             <th>No</th>
             <th className="mobile-hide">Name</th>
+            <th className="mobile-hide">Username</th>
             <th>Email</th>
             <th className="mobile-hide">Role</th>
             <th className="text-center">Detail</th>
@@ -48,6 +50,10 @@ export default function UserTable({
 
                 <td className="user-name mobile-hide">
                   {user.name}
+                </td>
+
+                <td className="user-username mobile-hide">
+                  {user.username ? `@${user.username}` : "-"}
                 </td>
 
                 <td className="user-email">

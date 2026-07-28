@@ -60,8 +60,8 @@ export default async function MyPostsPage({searchParams}: PageProps) {
     <div className="dashboard-page">
       <div className="dashboard-header">
         <div>
-          <h1 style={{textAlign:"left"}}>Your Posts</h1>
-          <p style={{textAlign:"left"}}>Manage all posts you have created. Now you have <span className="font-bold">{totalPosts}</span> post(s).</p>
+          <h1 style={{textAlign:"left"}}>Posts Saya</h1>
+          <p style={{textAlign:"left"}}>Kelola semua post yang kamu buat. Sekarang kamu memiliki <span className="font-bold">{totalPosts}</span> post.</p>
         </div>
 
         <Link

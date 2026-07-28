@@ -65,7 +65,7 @@ export default function LoginForm() {
       <div className="password-wrapper">
         <input
         type={showPassword ? "text" : "password"}
-        placeholder="Password"
+        placeholder="Kata sandi"
         className="post-input"
         value={password}
         required
@@ -104,13 +104,13 @@ export default function LoginForm() {
         type="submit"
         disabled={loading}
       >
-        {loading ? "Please wait..." : "Login"}
+        {loading ? "Tunggu..." : "Masuk"}
       </button>
     </form>
     <p className="auth-link">
-    Don&apos;t have an account?{" "}
+    Belum punya akun?{" "}
     <Link href="/register">
-        Register
+        Daftar
     </Link>
     </p>
     </>

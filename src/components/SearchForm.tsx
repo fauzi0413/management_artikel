@@ -25,7 +25,7 @@ export default function SearchForm({
         <input
           type="text"
           name="search"
-          placeholder="What are you looking for?"
+          placeholder="Anda sedang cari apa?"
           value={search}
           onChange={(e) =>
             setSearch(e.target.value)
@@ -50,7 +50,7 @@ export default function SearchForm({
         type="submit"
         className="search-btn"
       >
-        Search
+        Cari
       </button>
     </form>
   );

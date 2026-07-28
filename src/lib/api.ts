@@ -54,6 +54,14 @@ export async function getPostBySlug(slug: string) {
     where: {
       slug,
     },
+    include: {
+      user: {
+        select: {
+          name: true,
+          username: true,
+        }
+      }
+    }
   });
 }
 

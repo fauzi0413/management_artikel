@@ -37,7 +37,7 @@ async function page({params}: PageProps) {
                         <span>&larr;</span> Kembali ke Beranda
                     </Link>
                 </div>
-                <h1>Post not found</h1>
+                <h1>Postingan Tidak Ditemukan</h1>
             </div>
             </>
         )
@@ -58,6 +58,8 @@ async function page({params}: PageProps) {
                     dateStyle: "full",
                     timeStyle: "short",
                 })}
+                {" "}oleh <strong>{post.user?.name || "Penulis Tidak Diketahui"}</strong>
+                {post.user?.username && <span style={{ color: "#6b7280" }}> (@{post.user.username})</span>}
             </p>
             <div className="post-detail-image" style={{ margin: "20px 0", borderRadius: "8px", overflow: "hidden" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -67,7 +69,7 @@ async function page({params}: PageProps) {
                     style={{ width: "100%", height: "auto", display: "block" }} 
                 />
             </div>
-            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.content.replace(/&nbsp;/g, ' ') }} />
         </div>
         
         {combinedRelatedPosts.length > 0 && (
@@ -75,7 +77,7 @@ async function page({params}: PageProps) {
             <h2>Related Articles</h2>
 
             <div style={{ marginTop: "20px" }}>
-                <PostList posts={combinedRelatedPosts} />
+                <PostList posts={combinedRelatedPosts.map(p => ({ ...p, title: p.title ?? "" }))} />
             </div>
         </div>
         )}

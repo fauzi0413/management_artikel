@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function CreatePostPage() {
   const router = useRouter();
@@ -55,13 +56,10 @@ return (
             className="post-input"
         />
 
-        <textarea
-            placeholder="Masukkan isi artikel"
+        <RichTextEditor
             value={content}
-            onChange={(e) =>
-            setContent(e.target.value)
-            }
-            className="post-textarea"
+            onChange={setContent}
+            placeholder="Masukkan isi artikel"
         />
 
         <button
@@ -78,7 +76,7 @@ return (
                 href="/posts/my-posts"
                 className="back-btn"
             >
-                ← Back to Your Posts
+                ← Kembali
             </Link>
         </div>
         

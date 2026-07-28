@@ -37,7 +37,7 @@ export default function Pagination({
           href={createUrl(page - 1)}
           className="pagination-nav"
         >
-          ← Prev
+          ← Kembali
         </Link>
       )}
 
@@ -72,7 +72,7 @@ export default function Pagination({
           href={createUrl(page + 1)}
           className="pagination-nav"
         >
-          Next →
+          Lanjut →
         </Link>
       )}
     </div>

@@ -60,8 +60,8 @@ export default async function Home({ searchParams }: HomeProps) {
   );
   
   // Filter berdasarkan pencarian
-  const filteredPosts = allPosts.filter((post: any) => 
-    post.title.toLowerCase().includes(search) || 
+  const filteredPosts = allPosts.filter((post) => 
+    (post.title ?? "").toLowerCase().includes(search) || 
     post.content.toLowerCase().includes(search)
   );
   
@@ -75,9 +75,9 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <div className="home-container">
       <div className="hero-section">
-        <h1 className="hero-title">Welcome to <span className="brand-highlight">Brozy News</span></h1>
+        <h1 className="hero-title">Selamat Datang di <span className="brand-highlight">Brozy News</span></h1>
         <p className="hero-subtitle">
-          Temukan artikel pilihan, wawasan teknologi, dan tren terkini seputar dunia pengembangan perangkat lunak yang ditulis langsung oleh komunitas kami.
+          Dapatkan berita terbaru, informasi terkini, dan artikel pilihan dari berbagai topik terpercaya yang ditulis langsung untuk Anda.
         </p>
       </div>
       <div className="latest-articles-section">
@@ -92,7 +92,7 @@ export default async function Home({ searchParams }: HomeProps) {
           {search && `${totalPosts} berita ditemukan untuk "${search}"`}
         </p>
 
-        <PostList posts={paginatedPosts} />      
+        <PostList posts={paginatedPosts.map(p => ({ ...p, title: p.title ?? "" }))} />
         
         <Pagination page={page} totalPages={totalPages} basePath="/" search={search}/>
       </div>

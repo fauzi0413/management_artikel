@@ -56,7 +56,16 @@ export async function getExternalPosts() {
 
     const results = await Promise.all(fetchPromises);
     
-    let allArticles: any[] = [];
+    interface RssArticle {
+      title?: string;
+      pubDate: string;
+      description?: string;
+      thumbnail?: string;
+      link?: string;
+      [key: string]: unknown;
+    }
+
+    let allArticles: RssArticle[] = [];
     results.forEach(json => {
       if (json && json.items) {
         allArticles = [...allArticles, ...json.items];
@@ -65,7 +74,7 @@ export async function getExternalPosts() {
 
     allArticles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
     
-    return allArticles.map((article: any, index: number) => {
+    return allArticles.map((article: RssArticle, index: number) => {
       const rawDesc = article.description || "";
       
       const imgMatch = rawDesc.match(/<img[^>]+src="([^">]+)"/i);
@@ -74,8 +83,9 @@ export async function getExternalPosts() {
       if (!imageUrl && article.thumbnail) {
         imageUrl = article.thumbnail;
       }
-      if (!imageUrl && article.enclosure && article.enclosure.link) {
-        imageUrl = article.enclosure.link;
+      if (!imageUrl && article.enclosure) {
+        const enclosure = article.enclosure as Record<string, string>;
+        if (enclosure.link) imageUrl = enclosure.link;
       }
       
       if (!imageUrl || imageUrl.trim() === "") {

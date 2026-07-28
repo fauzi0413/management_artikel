@@ -1,10 +1,9 @@
 "use client"
 import React, {useState, useRef, useEffect} from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import ThemeChange from './ThemeChange'
 import { signOut, useSession } from 'next-auth/react'
-import { FaSignOutAlt, FaBars, FaTimes, FaUsers, FaFileContract, FaAngleDown } from 'react-icons/fa'
+import { FaSignOutAlt, FaBars, FaTimes, FaUsers, FaFileContract, FaAngleDown, FaHome, FaInfoCircle, FaSignInAlt, FaPenNib } from 'react-icons/fa'
 import { FaChartColumn } from 'react-icons/fa6'
 
 function Header() {
@@ -58,12 +57,16 @@ function Header() {
             <FaBars />
           )}
         </button>
+        <div className={`sidebar-overlay ${mobileMenu ? "active" : ""}`} onClick={() => setMobileMenu(false)}></div>
         <div className={`nav-links ${mobileMenu ? "active" : ""}`}>
-            <Link href="/" onClick={() => setMobileMenu(false)}>Beranda</Link>
+            <div className="sidebar-header">
+              <span className="brand-primary" style={{ color: '#2563eb' }}>Brozy</span><span className="brand-secondary" style={{ color: '#f59e0b' }}>News</span>
+            </div>
+            <Link href="/" onClick={() => setMobileMenu(false)} className="nav-item-link"><FaHome /> Beranda</Link>
             {session && (
-              <Link href="/posts/my-posts" onClick={() => setMobileMenu(false)}>Your Posts</Link>
+              <Link href="/posts/my-posts" onClick={() => setMobileMenu(false)} className="nav-item-link"><FaPenNib /> Posts Saya</Link>
             )}
-            <Link href="/about" onClick={() => setMobileMenu(false)}>Tentang</Link>
+            <Link href="/about" onClick={() => setMobileMenu(false)} className="nav-item-link"><FaInfoCircle /> Tentang</Link>
             {mobileMenu && session && (
               <>
               <div className="theme-btn ">
@@ -73,29 +76,33 @@ function Header() {
 
                 <div className="mobile-user-info">
                   {session.user?.name}
-                </div>
+                </div> 
 
                 {session.user?.role === "admin" && (
                   <>
+                    <div className="mobile-section-label">Admin</div>
                     <Link
                       href="/admin"
                       onClick={closeMobileMenu}
+                      className="nav-item-link"
                     >
-                      Dashboard
+                      <FaChartColumn /> Dashboard
                     </Link>
 
                     <Link
                       href="/admin/posts"
                       onClick={closeMobileMenu}
+                      className="nav-item-link"
                     >
-                      Manage Posts
+                      <FaFileContract /> Manage Posts
                     </Link>
 
                     <Link
                       href="/admin/users"
                       onClick={closeMobileMenu}
+                      className="nav-item-link"
                     >
-                      Manage Users
+                      <FaUsers /> Manage Users
                     </Link>
                   </>
                 )}
@@ -103,14 +110,14 @@ function Header() {
                 <div className="dropdown-divider"></div>
 
                 <button
-                  className="mobile-logout-btn"
+                  className="mobile-logout-btn nav-item-link"
                   onClick={() =>
                     signOut({
                       callbackUrl: "/",
                     })
                   }
                 >
-                  Logout
+                  <FaSignOutAlt /> Keluar
                 </button>
               </div>
               </>
@@ -173,6 +180,7 @@ function Header() {
               )
             ) : (
               <div className="guest-actions">
+                <Link href="/login" className="login-nav-btn nav-item-link" onClick={() => setMobileMenu(false)}><FaSignInAlt /> Masuk</Link>
                 <div className="theme-btn">
                   <ThemeChange />
                 </div>
